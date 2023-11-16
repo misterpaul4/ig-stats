@@ -1,6 +1,16 @@
-import { Image, Input, List, Space, Tabs, TabsProps, Typography } from "antd";
+import {
+  Image,
+  Input,
+  List,
+  Select,
+  Space,
+  Tabs,
+  TabsProps,
+  Typography,
+} from "antd";
 import { IData, IIGD } from "./utils/types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import dayjs from "dayjs";
 
 interface IProps extends IData {}
 
@@ -67,7 +77,7 @@ const Stat = ({ followers, following }: IProps) => {
     });
   }
 
-  return <Tabs items={items} />;
+  return <Tabs size="large" items={items} />;
 };
 
 interface IDisplayList {
@@ -78,33 +88,101 @@ interface IDisplayList {
 function DisplayList({ data, title }: IDisplayList) {
   const [local, setLocal] = useState(data);
 
-  const onSearch = (value: string) => {
-    if (value) {
+  const [searchTerm, setSearchTerm] = useState("");
+
+  useEffect(() => {
+    const searchDelay = setTimeout(() => {
+      if (searchTerm) {
+        setLocal(
+          data.filter((v) =>
+            v.string_list_data[0].value
+              .toLowerCase()
+              .includes(searchTerm.toLowerCase())
+          )
+        );
+      } else {
+        setLocal(data);
+      }
+    }, 500);
+
+    return () => {
+      clearTimeout(searchDelay);
+    };
+  }, [searchTerm, data]);
+
+  const handleSort = (property: "value" | "timestamp" | "default") => {
+    if (property === "default") {
       setLocal((current) =>
-        current.filter((v) =>
-          v.string_list_data[0].value
-            .toLowerCase()
-            .includes(value.toLowerCase())
+        data.filter((v) =>
+          current.some(
+            (t) => t.string_list_data[0].value === v.string_list_data[0].value
+          )
         )
       );
     } else {
-      setLocal(data);
+      setLocal((current) =>
+        [...current].sort((a, b) => {
+          const __A = a.string_list_data[0][property];
+          const __B = b.string_list_data[0][property];
+
+          return property === "timestamp"
+            ? (__A as number) - (__B as number)
+            : a.string_list_data[0][property].localeCompare(
+                b.string_list_data[0][property]
+              );
+        })
+      );
     }
   };
 
   return (
     <>
-      <Typography.Text>{title}</Typography.Text>
-
+      <Typography.Text>
+        {title}: <em>{data.length}</em>
+      </Typography.Text>
       <Input
-        onChange={(e) => onSearch(e.target.value)}
+        onChange={(e) => setSearchTerm(e.target.value)}
         placeholder="Search..."
         className="mt-2"
       />
+
+      <div className="text-start text-secondary mb-2 mt-1">
+        <Space size="small">
+          Sort By
+          <Select
+            popupMatchSelectWidth={false}
+            defaultValue="default"
+            bordered={false}
+            onChange={handleSort}
+            options={[
+              {
+                value: "default",
+                label: "Default",
+              },
+              {
+                value: "value",
+                label: "Username",
+              },
+              {
+                value: "timestamp",
+                label: "Date",
+              },
+            ]}
+          />
+        </Space>
+      </div>
       <List
         dataSource={local}
         renderItem={(value) => (
-          <List.Item>
+          <List.Item
+            actions={[
+              <span>
+                {dayjs(
+                  new Date(value.string_list_data[0].timestamp * 1000)
+                ).format("DD-MMM-YYYY")}
+              </span>,
+            ]}
+          >
             <Space size="large">
               <Image width={50} src={value.string_list_data[0].href} />
               <Typography.Link
