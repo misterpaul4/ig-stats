@@ -17,12 +17,12 @@ function App() {
   const [attempt, setAttempt] = useState(false);
   const [showStat, setShowStat] = useState(false);
 
-  const onClose = () => {
-    setShowStat(false);
-    setAttempt(false);
-    setFollowers(undefined);
-    setFollowing(undefined);
-  };
+  // const onClose = () => {
+  //   setShowStat(false);
+  //   setAttempt(false);
+  //   setFollowers(undefined);
+  //   setFollowing(undefined);
+  // };
 
   const onFinish = (values: { uploads: never }) => {
     try {
@@ -64,7 +64,7 @@ function App() {
   }, [attempt, followers, following]);
 
   return !showStat ? (
-    <div className="text-start">
+    <div className="text-start upload-container">
       <Form form={form} onFinish={onFinish}>
         <Form.Item name="uploads">
           <Dragger
@@ -99,7 +99,7 @@ function App() {
       </Form>
     </div>
   ) : (
-    <Stat followers={followers} following={following} onClose={onClose} />
+    <Stat followers={followers} following={following} />
   );
 }
 

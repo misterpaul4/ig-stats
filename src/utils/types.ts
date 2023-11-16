@@ -7,3 +7,4 @@ export interface IData {
   following?: IIGD[];
   followers?: IIGD[];
 }
+
