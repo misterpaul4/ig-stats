@@ -78,39 +78,19 @@ interface IDisplayList {
 function DisplayList({ data, title }: IDisplayList) {
   const [local, setLocal] = useState(data);
 
-  const [searchTerm, setSearchTerm] = useState();
-
-  useEffect(() => {
-    const getAddress = async () => {
-      const response: any = await findAddress(searchTerm);
-      setSearchResult(response?.data);
-    };
-
-    const searchDelay = setTimeout(() => {
-      if (searchTerm && selectedAddress !== searchTerm) {
-        getAddress();
-        setDisplayResult(true);
-      }
-    }, 500);
-
-    return () => {
-      clearTimeout(searchDelay);
-    };
-  }, [searchTerm]);
-
-  // const onSearch = (value: string) => {
-  //   if (value) {
-  //     setLocal((current) =>
-  //       current.filter((v) =>
-  //         v.string_list_data[0].value
-  //           .toLowerCase()
-  //           .includes(value.toLowerCase())
-  //       )
-  //     );
-  //   } else {
-  //     setLocal(data);
-  //   }
-  // };
+  const onSearch = (value: string) => {
+    if (value) {
+      setLocal((current) =>
+        current.filter((v) =>
+          v.string_list_data[0].value
+            .toLowerCase()
+            .includes(value.toLowerCase())
+        )
+      );
+    } else {
+      setLocal(data);
+    }
+  };
 
   return (
     <>
