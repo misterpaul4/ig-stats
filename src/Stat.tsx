@@ -1,4 +1,5 @@
 import {
+  Button,
   Image,
   Input,
   List,
@@ -11,6 +12,10 @@ import {
 import { IData, IIGD } from "./utils/types";
 import { useEffect, useState } from "react";
 import dayjs from "dayjs";
+import {
+  SortAscendingOutlined,
+  SortDescendingOutlined,
+} from "@ant-design/icons";
 
 interface IProps extends IData {}
 
@@ -85,10 +90,13 @@ interface IDisplayList {
   title: string | React.ReactElement;
 }
 
+type $sortValues = "value" | "timestamp" | "default";
+
 function DisplayList({ data, title }: IDisplayList) {
   const [local, setLocal] = useState(data);
-
   const [searchTerm, setSearchTerm] = useState("");
+  const [asc, setAsc] = useState(true);
+  const [sortValue, setSortValue] = useState<$sortValues>("default");
 
   useEffect(() => {
     const searchDelay = setTimeout(() => {
@@ -110,7 +118,7 @@ function DisplayList({ data, title }: IDisplayList) {
     };
   }, [searchTerm, data]);
 
-  const handleSort = (property: "value" | "timestamp" | "default") => {
+  const handleSort = (property: $sortValues, forceAsc?: boolean) => {
     if (property === "default") {
       setLocal((current) =>
         data.filter((v) =>
@@ -124,12 +132,22 @@ function DisplayList({ data, title }: IDisplayList) {
         [...current].sort((a, b) => {
           const __A = a.string_list_data[0][property];
           const __B = b.string_list_data[0][property];
+          let prop = [__A, __B];
+
+          if (typeof forceAsc === "boolean") {
+            if (forceAsc === false) {
+              prop = [__B, __A];
+            }
+          } else if (!asc) {
+            prop = [__B, __A];
+          }
+
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const [value1, value2] = prop as any;
 
           return property === "timestamp"
-            ? (__A as number) - (__B as number)
-            : a.string_list_data[0][property].localeCompare(
-                b.string_list_data[0][property]
-              );
+            ? value1 - value2
+            : value1.localeCompare(value2);
         })
       );
     }
@@ -153,7 +171,10 @@ function DisplayList({ data, title }: IDisplayList) {
             popupMatchSelectWidth={false}
             defaultValue="default"
             bordered={false}
-            onChange={handleSort}
+            onChange={(v: $sortValues) => {
+              setSortValue(v);
+              handleSort(v);
+            }}
             options={[
               {
                 value: "default",
@@ -168,6 +189,15 @@ function DisplayList({ data, title }: IDisplayList) {
                 label: "Date",
               },
             ]}
+          />
+          <Button
+            icon={asc ? <SortAscendingOutlined /> : <SortDescendingOutlined />}
+            shape="circle"
+            onClick={() => {
+              setAsc(!asc);
+              handleSort(sortValue, !asc);
+            }}
+            type="dashed"
           />
         </Space>
       </div>
