@@ -81,7 +81,16 @@ const Stat = ({ followers, following }: IProps) => {
     });
   }
 
-  return <Tabs type="card" centered animated size="large" items={items} />;
+  return (
+    <Tabs
+      className="stat-tabs"
+      type="card"
+      centered
+      animated
+      size="large"
+      items={items}
+    />
+  );
 };
 
 interface IDisplayList {
@@ -166,7 +175,7 @@ function DisplayList({ data, title }: IDisplayList) {
         allowClear
       />
 
-      <div className="text-start text-secondary mb-2 mt-1">
+      <div className="text-start text-secondary mb-2 mt-2">
         <Space size="small">
           Sort By
           <Select
@@ -223,6 +232,7 @@ function DisplayList({ data, title }: IDisplayList) {
           dataSource={local}
           renderItem={(value) => (
             <List.Item
+              className="text-start"
               actions={[
                 <span>
                   {dayjs(
