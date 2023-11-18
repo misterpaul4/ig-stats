@@ -201,7 +201,11 @@ function DisplayList({ data, title }: IDisplayList) {
         </Space>
       </div>
       <List
-        pagination={{ defaultPageSize: 50, size: "small" }}
+        pagination={{
+          defaultPageSize: 50,
+          size: "small",
+          showQuickJumper: true,
+        }}
         dataSource={local}
         renderItem={(value) => (
           <List.Item
