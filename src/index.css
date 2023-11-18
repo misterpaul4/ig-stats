@@ -9,10 +9,3 @@ body {
   font-family: 'Bricolage Grotesque', sans-serif;
   font-family: 'Open Sans', sans-serif;
 }
-
-.upload-container {
-  min-height: 80vh;
-  display: flex;
-  place-items: center;
-  overflow-x: hidden;
-}
