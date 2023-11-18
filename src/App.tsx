@@ -18,12 +18,13 @@ function App() {
   const [attempt, setAttempt] = useState(false);
   const [showStat, setShowStat] = useState(false);
 
-  // const onClose = () => {
-  //   setShowStat(false);
-  //   setAttempt(false);
-  //   setFollowers(undefined);
-  //   setFollowing(undefined);
-  // };
+  const onClose = () => {
+    setShowStat(false);
+    setAttempt(false);
+    setFollowers(undefined);
+    setFollowing(undefined);
+    form.resetFields();
+  };
 
   const onFinish = (values: { uploads: never }) => {
     try {
@@ -38,7 +39,11 @@ function App() {
             const result = JSON.parse(content);
             // following: relationships_following
             if (result?.relationships_following) {
-              setFollowing(result.relationships_following);
+              setFollowing((current) =>
+                current
+                  ? [...current, ...result.relationships_following]
+                  : result.relationships_following
+              );
             } else if (Array.isArray(result)) {
               setFollowers((current) =>
                 current ? [...current, ...result] : result
@@ -79,6 +84,17 @@ function App() {
               label: "How to get started",
               children: <Instructions />,
             },
+            {
+              key: "2",
+              label: "What happens to my data after uploading?",
+              children: (
+                <p>
+                  Rest assured, your data is not stored on any server. All
+                  operations are exclusively performed on the client side
+                  without any need for external API requests.
+                </p>
+              ),
+            },
           ]}
           bordered={false}
           className="mb-3 w-100"
@@ -101,6 +117,9 @@ function App() {
                 Support for a single or bulk upload. Only JSON files is
                 supported
               </p>
+              <p>
+                <em>upload following/followers JSON files.</em>
+              </p>
             </Dragger>
           </Form.Item>
 
@@ -112,14 +131,14 @@ function App() {
               className="mt-2"
               htmlType="submit"
             >
-              Analyze
+              Submit
             </Button>
           )}
         </Form>
       </div>
     </div>
   ) : (
-    <Stat followers={followers} following={following} />
+    <Stat onClose={onClose} followers={followers} following={following} />
   );
 }
 

@@ -12,8 +12,8 @@ const Instructions = () => {
   const imageWidth = 300;
 
   return (
-    <div>
-      <ol style={{ lineHeight: "2rem", fontSize: "1rem" }}>
+    <div className="instructions">
+      <ol>
         <Space direction="vertical" size="large">
           <div>
             <li>Open instagram, go to settings</li>
@@ -58,12 +58,13 @@ const Instructions = () => {
         showIcon
         message={
           <Typography.Paragraph>
-            Please allow a few minutes for the data to become accessible in the
+            Please allow a few minutes for the data to become accessible in
             account center. Once ready, you can download the data. Upload the
             JSON files named <strong>'followers_1.json'</strong> and{" "}
             <strong>'following.json'</strong>. If you possess a substantial
-            number of followers, you may encounter additional files such as
-            'followers_2.json,' and so forth.
+            number of followers, you may encounter additional files such as{" "}
+            <strong>'followers_2.json'</strong> and so forth, upload those as
+            well.
           </Typography.Paragraph>
         }
       />

@@ -1,5 +1,6 @@
 import {
   Button,
+  FloatButton,
   Input,
   List,
   Select,
@@ -12,13 +13,16 @@ import { IData, IIGD } from "./utils/types";
 import { useEffect, useRef, useState } from "react";
 import dayjs from "dayjs";
 import {
+  CloseOutlined,
   SortAscendingOutlined,
   SortDescendingOutlined,
 } from "@ant-design/icons";
 
-interface IProps extends IData {}
+interface IProps extends IData {
+  onClose: () => void;
+}
 
-const Stat = ({ followers, following }: IProps) => {
+const Stat = ({ followers, following, onClose }: IProps) => {
   const items: TabsProps["items"] = [];
 
   const getDiff = (setA: IIGD[], setB: IIGD[]) => {
@@ -82,14 +86,22 @@ const Stat = ({ followers, following }: IProps) => {
   }
 
   return (
-    <Tabs
-      className="stat-tabs"
-      type="card"
-      animated
-      size="small"
-      items={items}
-      defaultActiveKey="Tab 3"
-    />
+    <>
+      <Tabs
+        className="stat-tabs"
+        type="card"
+        animated
+        size="small"
+        items={items}
+        defaultActiveKey="Tab 3"
+      />
+      <FloatButton
+        icon={<CloseOutlined />}
+        type="primary"
+        tooltip="Close"
+        onClick={onClose}
+      />
+    </>
   );
 };
 
@@ -215,7 +227,7 @@ function DisplayList({ data, title }: IDisplayList) {
       <div ref={ref} className="stat-list">
         <List
           pagination={{
-            defaultPageSize: 50,
+            defaultPageSize: 100,
             showQuickJumper: true,
             align: "center",
             responsive: true,

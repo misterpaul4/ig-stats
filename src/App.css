@@ -22,3 +22,7 @@
 .stat-tabs {
   max-width: 80vw;
 }
+
+.instructions .ant-image {
+  margin-top: 10px;
+}
