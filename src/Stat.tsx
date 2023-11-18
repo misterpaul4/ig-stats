@@ -9,7 +9,7 @@ import {
   Typography,
 } from "antd";
 import { IData, IIGD } from "./utils/types";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import dayjs from "dayjs";
 import {
   SortAscendingOutlined,
@@ -152,6 +152,8 @@ function DisplayList({ data, title }: IDisplayList) {
     }
   };
 
+  const ref = useRef<HTMLDivElement>(null);
+
   return (
     <>
       <Typography.Text>
@@ -161,6 +163,7 @@ function DisplayList({ data, title }: IDisplayList) {
         onChange={(e) => setSearchTerm(e.target.value)}
         placeholder="Search..."
         className="mt-2"
+        allowClear
       />
 
       <div className="text-start text-secondary mb-2 mt-1">
@@ -200,34 +203,46 @@ function DisplayList({ data, title }: IDisplayList) {
           />
         </Space>
       </div>
-      <List
-        pagination={{
-          defaultPageSize: 50,
-          size: "small",
-          showQuickJumper: true,
-        }}
-        dataSource={local}
-        renderItem={(value) => (
-          <List.Item
-            actions={[
-              <span>
-                {dayjs(
-                  new Date(value.string_list_data[0].timestamp * 1000)
-                ).format("DD-MMM-YYYY")}
-              </span>,
-            ]}
-          >
-            <Space size="large">
-              <Typography.Link
-                target="_blank"
-                href={value.string_list_data[0].href}
-              >
-                {value.string_list_data[0].value}
-              </Typography.Link>
-            </Space>
-          </List.Item>
-        )}
-      />
+      <div ref={ref} className="stat-list">
+        <List
+          pagination={{
+            defaultPageSize: 50,
+            size: "small",
+            showQuickJumper: true,
+            align: "center",
+            responsive: true,
+            className: "m-4",
+            hideOnSinglePage: true,
+            onChange: () => {
+              ref.current?.scrollTo({
+                behavior: "smooth",
+                top: 0,
+              });
+            },
+          }}
+          dataSource={local}
+          renderItem={(value) => (
+            <List.Item
+              actions={[
+                <span>
+                  {dayjs(
+                    new Date(value.string_list_data[0].timestamp * 1000)
+                  ).format("DD-MMM-YYYY")}
+                </span>,
+              ]}
+            >
+              <Space size="large">
+                <Typography.Link
+                  target="_blank"
+                  href={value.string_list_data[0].href}
+                >
+                  {value.string_list_data[0].value}
+                </Typography.Link>
+              </Space>
+            </List.Item>
+          )}
+        />
+      </div>
     </>
   );
 }

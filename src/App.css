@@ -4,3 +4,9 @@
   padding: 2rem;
   text-align: center;
 }
+
+.stat-list {
+  max-height: 65vh;
+  overflow-y: auto;
+  border-bottom: 1px dashed grey;
+}
