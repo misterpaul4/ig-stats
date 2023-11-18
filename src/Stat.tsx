@@ -1,6 +1,5 @@
 import {
   Button,
-  Image,
   Input,
   List,
   Select,
@@ -202,6 +201,7 @@ function DisplayList({ data, title }: IDisplayList) {
         </Space>
       </div>
       <List
+        pagination={{ defaultPageSize: 50, size: "small" }}
         dataSource={local}
         renderItem={(value) => (
           <List.Item
@@ -214,9 +214,7 @@ function DisplayList({ data, title }: IDisplayList) {
             ]}
           >
             <Space size="large">
-              <Image width={50} src={value.string_list_data[0].href} />
               <Typography.Link
-                className="text-secondary"
                 target="_blank"
                 href={value.string_list_data[0].href}
               >
