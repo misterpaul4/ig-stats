@@ -85,10 +85,10 @@ const Stat = ({ followers, following }: IProps) => {
     <Tabs
       className="stat-tabs"
       type="card"
-      centered
       animated
-      size="large"
+      size="small"
       items={items}
+      defaultActiveKey="Tab 3"
     />
   );
 };
@@ -171,7 +171,7 @@ function DisplayList({ data, title }: IDisplayList) {
       <Input
         onChange={(e) => setSearchTerm(e.target.value)}
         placeholder="Search..."
-        className="mt-2"
+        className="mt-2 w-100"
         allowClear
       />
 
@@ -216,15 +216,13 @@ function DisplayList({ data, title }: IDisplayList) {
         <List
           pagination={{
             defaultPageSize: 50,
-            size: "small",
             showQuickJumper: true,
             align: "center",
             responsive: true,
-            className: "m-4",
-            hideOnSinglePage: true,
+            showSizeChanger: true,
+            className: "m-2",
             onChange: () => {
               ref.current?.scrollTo({
-                behavior: "smooth",
                 top: 0,
               });
             },
