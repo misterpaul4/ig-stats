@@ -6,7 +6,8 @@
 }
 
 .stat-list {
-  max-height: 65vh;
+  max-height: 63vh;
   overflow-y: auto;
+  overflow-x: hidden;
   border-bottom: 1px dashed grey;
 }

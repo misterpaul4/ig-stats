@@ -81,7 +81,7 @@ const Stat = ({ followers, following }: IProps) => {
     });
   }
 
-  return <Tabs size="large" items={items} />;
+  return <Tabs type="card" centered animated size="large" items={items} />;
 };
 
 interface IDisplayList {
