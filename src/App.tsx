@@ -12,7 +12,6 @@ const { Dragger } = Upload;
 function App() {
   const [form] = Form.useForm();
   const uploads = Form.useWatch("uploads", form);
-  // const [statScreen, setStatScreen] = useState(false);
   const [following, setFollowing] = useState<IIGD[]>();
   const [followers, setFollowers] = useState<IIGD[]>();
   const [attempt, setAttempt] = useState(false);
