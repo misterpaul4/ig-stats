@@ -82,7 +82,6 @@ function App() {
             {
               key: "1",
               label: "How to get started",
-              forceRender: true,
               children: <Instructions />,
             },
             {
