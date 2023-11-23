@@ -1,15 +1,29 @@
-import { Alert, Image, Space, Typography } from "antd";
-import i1 from "./assets/1.jpeg";
-import i2 from "./assets/2.jpeg";
-import i3 from "./assets/3.jpeg";
-import i4 from "./assets/4.jpeg";
-import i5 from "./assets/5.jpeg";
-import i6 from "./assets/6.jpeg";
-import i7 from "./assets/7.jpeg";
-import i8 from "./assets/8.jpeg";
+import { Alert, Image, Skeleton, Space, Typography } from "antd";
+import { useState } from "react";
+const i1 = "src/assets/1.jpeg";
+const i2 = "src/assets/2.jpeg";
+const i3 = "src/assets/3.jpeg";
+const i4 = "src/assets/4.jpeg";
+const i5 = "src/assets/5.jpeg";
+const i6 = "src/assets/6.jpeg";
+const i7 = "src/assets/7.jpeg";
+const i8 = "src/assets/8.jpeg";
 
 const Instructions = () => {
+  const [loading, setLoading] = useState<Record<string, boolean>>(() => {
+    const value: Record<string, true> = {};
+    for (let index = 0; index < 8; index++) {
+      value[`ld${index + 1}`] = true;
+    }
+
+    return value;
+  });
   const imageWidth = 300;
+  const loaderHeightMultiplier = 1.5;
+
+  const handleLoad = (key: string) => {
+    setLoading((current) => ({ ...current, [key]: false }));
+  };
 
   return (
     <div className="instructions">
@@ -17,38 +31,143 @@ const Instructions = () => {
         <Space direction="vertical" size="large">
           <div>
             <li>Open instagram, go to settings</li>
-            <Image src={i1} width={imageWidth} />
+            {loading.ld1 && (
+              <Skeleton.Image
+                active
+                style={{
+                  width: imageWidth,
+                  height: imageWidth * loaderHeightMultiplier,
+                }}
+              />
+            )}
+
+            <Image
+              onLoad={() => handleLoad("ld1")}
+              src={i1}
+              width={imageWidth}
+            />
           </div>
           <div>
             <li>Open account center</li>
-            <Image src={i2} width={imageWidth} />
+            {loading.ld2 && (
+              <Skeleton.Image
+                active
+                style={{
+                  width: imageWidth,
+                  height: imageWidth * loaderHeightMultiplier,
+                }}
+              />
+            )}
+            <Image
+              onLoad={() => handleLoad("ld2")}
+              src={i2}
+              width={imageWidth}
+            />
           </div>
           <div>
             <li>Your information and permissions</li>
-            <Image src={i3} width={imageWidth} />
+            {loading.ld3 && (
+              <Skeleton.Image
+                active
+                style={{
+                  width: imageWidth,
+                  height: imageWidth * loaderHeightMultiplier,
+                }}
+              />
+            )}
+            <Image
+              onLoad={() => handleLoad("ld3")}
+              src={i3}
+              width={imageWidth}
+            />
           </div>
           <div>
             <li>Download your information</li>
-            <Image src={i4} width={imageWidth} />
+            {loading.ld4 && (
+              <Skeleton.Image
+                active
+                style={{
+                  width: imageWidth,
+                  height: imageWidth * loaderHeightMultiplier,
+                }}
+              />
+            )}
+            <Image
+              onLoad={() => handleLoad("ld4")}
+              src={i4}
+              width={imageWidth}
+            />
           </div>
           <div>
             <li>Request a download then select only your instagram account</li>
-            <Image src={i5} width={imageWidth} />
+            {loading.ld5 && (
+              <Skeleton.Image
+                active
+                style={{
+                  width: imageWidth,
+                  height: imageWidth * loaderHeightMultiplier,
+                }}
+              />
+            )}
+            <Image
+              onLoad={() => handleLoad("ld5")}
+              src={i5}
+              width={imageWidth}
+            />
           </div>
           <div>
             <li>
               Since we are only interested in following/follower data, pick the
               second option
             </li>
-            <Image src={i6} width={imageWidth} />
+            {loading.ld6 && (
+              <Skeleton.Image
+                active
+                style={{
+                  width: imageWidth,
+                  height: imageWidth * loaderHeightMultiplier,
+                }}
+              />
+            )}
+            <Image
+              onLoad={() => handleLoad("ld6")}
+              src={i6}
+              width={imageWidth}
+            />
           </div>
           <div>
             <li>Select "Followers & following"</li>
-            <Image src={i7} width={imageWidth} />
+            {loading.ld7 && (
+              <Skeleton.Image
+                active
+                style={{
+                  width: imageWidth,
+                  height: imageWidth * loaderHeightMultiplier,
+                }}
+              />
+            )}
+            <Image
+              onLoad={() => handleLoad("ld7")}
+              src={i7}
+              width={imageWidth}
+            />
           </div>
           <div>
             <li>The configuration should look like this. Submit request</li>
-            <Image src={i8} width={imageWidth} />
+            {loading.ld8 && (
+              <Skeleton.Image
+                active
+                style={{
+                  width: imageWidth,
+                  height: imageWidth * loaderHeightMultiplier,
+                }}
+              />
+            )}
+            <Image
+              onLoad={() => handleLoad("ld8")}
+              src={i8}
+              width={imageWidth}
+            />
           </div>
         </Space>
       </ol>

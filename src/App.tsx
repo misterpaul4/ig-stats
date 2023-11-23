@@ -73,7 +73,7 @@ function App() {
     <div className="text-start upload-container">
       <div>
         <Typography.Title level={3} className="text-center">
-          Find out who is not following you back
+          Find out who is not following you back on instagram
         </Typography.Title>
         <Collapse
           ghost
