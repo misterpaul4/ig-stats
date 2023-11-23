@@ -1,13 +1,13 @@
 import { Alert, Skeleton, Space, Typography } from "antd";
 import { useState } from "react";
-import i1 from "/assets/1.jpeg";
-import i2 from "/assets/2.jpeg";
-import i3 from "/assets/3.jpeg";
-import i4 from "/assets/4.jpeg";
-import i5 from "/assets/5.jpeg";
-import i6 from "/assets/6.jpeg";
-import i7 from "/assets/7.jpeg";
-import i8 from "/assets/8.jpeg";
+import i1 from "../public/assets/img1.jpeg";
+import i2 from "../public/assets/img2.jpeg";
+import i3 from "../public/assets/img3.jpeg";
+import i4 from "../public/assets/img4.jpeg";
+import i5 from "../public/assets/img5.jpeg";
+import i6 from "../public/assets/img6.jpeg";
+import i7 from "../public/assets/img7.jpeg";
+import i8 from "../public/assets/img8.jpeg";
 
 const Instructions = () => {
   const [loading, setLoading] = useState<Record<string, boolean>>(() => {
