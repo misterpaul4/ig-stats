@@ -1,4 +1,4 @@
-import { Alert, Skeleton, Space, Typography } from "antd";
+import { Alert, Image, Skeleton, Space, Typography } from "antd";
 import { useState } from "react";
 import i1 from "../public/assets/img1.jpeg";
 import i2 from "../public/assets/img2.jpeg";
@@ -41,7 +41,11 @@ const Instructions = () => {
               />
             )}
 
-            <img onLoad={() => handleLoad("ld1")} src={i1} width={imageWidth} />
+            <Image
+              onLoad={() => handleLoad("ld1")}
+              src={i1}
+              width={imageWidth}
+            />
           </div>
           <div>
             <li>Open account center</li>
@@ -54,7 +58,11 @@ const Instructions = () => {
                 }}
               />
             )}
-            <img onLoad={() => handleLoad("ld2")} src={i2} width={imageWidth} />
+            <Image
+              onLoad={() => handleLoad("ld2")}
+              src={i2}
+              width={imageWidth}
+            />
           </div>
           <div>
             <li>Your information and permissions</li>
@@ -67,7 +75,11 @@ const Instructions = () => {
                 }}
               />
             )}
-            <img onLoad={() => handleLoad("ld3")} src={i3} width={imageWidth} />
+            <Image
+              onLoad={() => handleLoad("ld3")}
+              src={i3}
+              width={imageWidth}
+            />
           </div>
           <div>
             <li>Download your information</li>
@@ -80,7 +92,11 @@ const Instructions = () => {
                 }}
               />
             )}
-            <img onLoad={() => handleLoad("ld4")} src={i4} width={imageWidth} />
+            <Image
+              onLoad={() => handleLoad("ld4")}
+              src={i4}
+              width={imageWidth}
+            />
           </div>
           <div>
             <li>Request a download then select only your instagram account</li>
@@ -93,7 +109,11 @@ const Instructions = () => {
                 }}
               />
             )}
-            <img onLoad={() => handleLoad("ld5")} src={i5} width={imageWidth} />
+            <Image
+              onLoad={() => handleLoad("ld5")}
+              src={i5}
+              width={imageWidth}
+            />
           </div>
           <div>
             <li>
@@ -109,7 +129,11 @@ const Instructions = () => {
                 }}
               />
             )}
-            <img onLoad={() => handleLoad("ld6")} src={i6} width={imageWidth} />
+            <Image
+              onLoad={() => handleLoad("ld6")}
+              src={i6}
+              width={imageWidth}
+            />
           </div>
           <div>
             <li>Select "Followers & following"</li>
@@ -122,7 +146,11 @@ const Instructions = () => {
                 }}
               />
             )}
-            <img onLoad={() => handleLoad("ld7")} src={i7} width={imageWidth} />
+            <Image
+              onLoad={() => handleLoad("ld7")}
+              src={i7}
+              width={imageWidth}
+            />
           </div>
           <div>
             <li>The configuration should look like this. Submit request</li>
@@ -135,7 +163,11 @@ const Instructions = () => {
                 }}
               />
             )}
-            <img onLoad={() => handleLoad("ld8")} src={i8} width={imageWidth} />
+            <Image
+              onLoad={() => handleLoad("ld8")}
+              src={i8}
+              width={imageWidth}
+            />
           </div>
         </Space>
       </ol>
